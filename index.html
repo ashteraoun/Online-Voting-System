@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Online Voting System</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">🗳️ VoteSecure</div>
+    <div class="nav-links">
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('login')">Login</a>
+      <a href="#" onclick="showPage('register')">Register</a>
+      <a href="#" id="adminLink" style="display:none" onclick="showPage('admin')">Admin Panel</a>
+      <a href="#" id="logoutBtn" style="display:none" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div id="home" class="page active">
+    <div class="hero">
+      <h1>Welcome to <span>VoteSecure</span></h1>
+      <p>A secure, transparent, and easy-to-use Online Voting System for fair elections.</p>
+      <div class="hero-btns">
+        <button onclick="showPage('register')">Get Started</button>
+        <button class="outline" onclick="showPage('login')">Login</button>
+      </div>
+    </div>
+    <div class="features">
+      <div class="feature-card">🔒<h3>Secure Voting</h3><p>Each voter can vote only once. Data is stored securely in the browser.</p></div>
+      <div class="feature-card">📊<h3>Live Results</h3><p>Results are updated in real-time as votes are cast.</p></div>
+      <div class="feature-card">🛡️<h3>Admin Control</h3><p>Admin can manage candidates and monitor the election process.</p></div>
+      <div class="feature-card">📱<h3>Responsive</h3><p>Works on all devices – desktop, tablet, and mobile.</p></div>
+    </div>
+  </div>
+
+  <!-- REGISTER PAGE -->
+  <div id="register" class="page">
+    <div class="form-container">
+      <h2>Voter Registration</h2>
+      <input type="text" id="regName" placeholder="Full Name" />
+      <input type="text" id="regCnic" placeholder="CNIC (e.g. 42101-1234567-1)" />
+      <input type="password" id="regPass" placeholder="Create Password" />
+      <select id="regConstituency">
+        <option value="">-- Select Constituency --</option>
+        <option>NA-1 Karachi East</option>
+        <option>NA-2 Karachi West</option>
+        <option>NA-3 Karachi South</option>
+        <option>NA-4 Lahore North</option>
+        <option>NA-5 Islamabad</option>
+      </select>
+      <button onclick="registerVoter()">Register</button>
+      <p class="form-link">Already registered? <a href="#" onclick="showPage('login')">Login here</a></p>
+      <div id="regMsg" class="msg"></div>
+    </div>
+  </div>
+
+  <!-- LOGIN PAGE -->
+  <div id="login" class="page">
+    <div class="form-container">
+      <h2>Voter / Admin Login</h2>
+      <input type="text" id="loginCnic" placeholder="CNIC or 'admin'" />
+      <input type="password" id="loginPass" placeholder="Password" />
+      <button onclick="loginUser()">Login</button>
+      <p class="form-link">Not registered? <a href="#" onclick="showPage('register')">Register here</a></p>
+      <div id="loginMsg" class="msg"></div>
+    </div>
+  </div>
+
+  <!-- VOTING PAGE -->
+  <div id="vote" class="page">
+    <div class="vote-container">
+      <h2>Cast Your Vote</h2>
+      <p id="voterGreet"></p>
+      <div id="candidateList" class="candidate-list"></div>
+      <button id="castBtn" onclick="castVote()">Submit Vote</button>
+      <div id="voteMsg" class="msg"></div>
+    </div>
+  </div>
+
+  <!-- RESULTS PAGE -->
+  <div id="results" class="page">
+    <div class="results-container">
+      <h2>📊 Live Election Results</h2>
+      <div id="resultsChart"></div>
+      <button onclick="showPage('vote')" id="backToVote" style="display:none">← Back to Voting</button>
+    </div>
+  </div>
+
+  <!-- ADMIN PAGE -->
+  <div id="admin" class="page">
+    <div class="admin-container">
+      <h2>⚙️ Admin Panel</h2>
+      <div class="admin-section">
+        <h3>Add Candidate</h3>
+        <input type="text" id="candName" placeholder="Candidate Name" />
+        <input type="text" id="candParty" placeholder="Party Name" />
+        <select id="candConst">
+          <option value="">-- Select Constituency --</option>
+          <option>NA-1 Karachi East</option>
+          <option>NA-2 Karachi West</option>
+          <option>NA-3 Karachi South</option>
+          <option>NA-4 Lahore North</option>
+          <option>NA-5 Islamabad</option>
+        </select>
+        <button onclick="addCandidate()">Add Candidate</button>
+        <div id="candMsg" class="msg"></div>
+      </div>
+      <div class="admin-section">
+        <h3>Election Control</h3>
+        <button id="toggleElection" onclick="toggleElection()">Start Election</button>
+        <button onclick="resetVotes()" class="danger">Reset All Votes</button>
+      </div>
+      <div class="admin-section">
+        <h3>Registered Voters</h3>
+        <div id="voterTable"></div>
+      </div>
+      <div class="admin-section">
+        <h3>All Candidates</h3>
+        <div id="candidateTable"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
